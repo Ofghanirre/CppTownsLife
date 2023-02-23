@@ -1,0 +1,3 @@
+/home/ofgha/Documents/Custom/CPP/Test1/cmake-build-debug/CMakeFiles/Test1.dir
+/home/ofgha/Documents/Custom/CPP/Test1/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/ofgha/Documents/Custom/CPP/Test1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
