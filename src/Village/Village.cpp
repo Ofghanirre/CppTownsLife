@@ -5,7 +5,7 @@
 #include <sstream>
 #include "Village.h"
 
-Village::Village(const std::string name, const int creation_date) : _name(name), _age(0), _creationDate{creation_date} {
+Village::Village(const std::string& name, const int creation_date) : _name(name), _age(0), _creationDate{creation_date} {
     std::cout << "On the year " << creation_date << " a new community shine! " << "Behold the Village " << name << "!" << std::endl;
 }
 
@@ -14,21 +14,22 @@ Village::~Village() {
 }
 
 
-int Village::age() {
+void Village::nextYearHandler() {
     for (auto iterator = _inhabitants.begin(); iterator != _inhabitants.end();) {
-        int npcAge= (*iterator)->growOlder();
+        auto& npc = **iterator;
+        npc.growOlder();
 
-        if (!(*iterator)->isAlive()) {
+        if (!npc.isAlive()) {
+            int npcAge= npc.getAge();
             int currentYear = _creationDate + _age;
 
-            _memorials.emplace_back((*iterator)->getName(), npcAge, currentYear - npcAge, currentYear);
+            _memorials.emplace_back(NpcMemorial{npc.getName(), npcAge, currentYear - npcAge, currentYear});
             iterator = _inhabitants.erase(iterator);
             continue;
         }
         iterator++;
     }
     _age++;
-    return _inhabitants.size();
 }
 
 int Village::getVillageSize() const {
@@ -38,7 +39,7 @@ int Village::getMemorialSize() const {
     return _memorials.size();
 }
 
-int Village::getAliveInhabitants() const {
+int Village::getAliveInhabitantsAmount() const {
     int result = 0;
     for (const auto &item: _inhabitants) {
         if (item->getLifeState() == ELifeState::Alive) {
@@ -65,7 +66,7 @@ std::string Village::to_string() const {
     return result.str();
 }
 
-void Village::kill() {
+void Village::killAllInhabitants() {
     for (const auto &npc: _inhabitants) {
         npc->killHandler();
     }
@@ -74,5 +75,11 @@ void Village::kill() {
 std::string Village::getName() const {
     return _name;
 }
+
+std::ostream &operator<<(std::ostream &os, const Village &v) {
+    os << v.to_string();
+    return os;
+}
+
 
 

@@ -6,24 +6,21 @@
 #define TEST1_VILLAGE_H
 
 
+#include <utility>
 #include <vector>
 #include <memory>
 #include "../Npc/Npc.h"
 
 struct NpcMemorial {
-    NpcMemorial(std::string name, int death_age, const int birthDate, const int deathDate)
-        : _name{name}, _death_age{death_age}, birth_date(birthDate), death_date(deathDate) {
-    }
-
-    const std::string _name;
-    const int _death_age;
-    const int birth_date;
-    const int death_date;
+    std::string _name;
+    int _death_age;
+    int birth_date;
+    int death_date;
 };
 
 class Village {
 public:
-    explicit Village(const std::string name, const int creation_date);
+    explicit Village(const std::string& name, const int creation_date);
 
 ~Village();
 
@@ -37,15 +34,17 @@ public:
         return _inhabitants.size();
     }
 
-    int getAliveInhabitants() const;
+    int getAliveInhabitantsAmount() const;
 
-    int age();
+    void nextYearHandler();
 
-    void kill();
+    void killAllInhabitants();
 
     std::string to_string() const;
 
     std::string getName() const;
+
+    friend std::ostream& operator<<(std::ostream& os, const Village& v);
 
 private:
     const std::string _name;
