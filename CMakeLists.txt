@@ -3,4 +3,4 @@ project(Test1)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(Test1 main.cpp Npc/Npc.cpp Npc/Npc.h Npc/Races/Human/Human.cpp Npc/Races/Human/Human.h Npc/Races/Elf/Elf.cpp Npc/Races/Elf/Elf.h Npc/Races/Undead/Undead.cpp Npc/Races/Undead/Undead.h Npc/Races/Spirit/Spirit.cpp Npc/Races/Spirit/Spirit.h Village/Village.cpp Village/Village.h)
+add_executable(Test1 src/main.cpp src/Npc/Npc.cpp src/Npc/Npc.h src/Npc/Races/Human/Human.cpp src/Npc/Races/Human/Human.h src/Npc/Races/Elf/Elf.cpp src/Npc/Races/Elf/Elf.h src/Npc/Races/Undead/Undead.cpp src/Npc/Races/Undead/Undead.h src/Npc/Races/Spirit/Spirit.cpp src/Npc/Races/Spirit/Spirit.h src/Village/Village.cpp src/Village/Village.h src/Npc/Relations/RaceRelation.h src/Npc/Relations/NpcRelation.h)
