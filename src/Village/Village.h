@@ -10,6 +10,7 @@
 #include <vector>
 #include <memory>
 #include "../Npc/Npc.h"
+#include "../NpcRelation/NpcRelationSystem.h"
 
 struct NpcMemorial {
     std::string _name;
@@ -17,6 +18,13 @@ struct NpcMemorial {
     int birth_date;
     int death_date;
 };
+
+enum class VillageAction {
+    Exit = 0,
+    Show = 1,
+    Talk = 2,
+};
+
 
 class Village {
 public:
@@ -30,7 +38,7 @@ public:
 
 
     int addNpc(std::unique_ptr<Npc> npc) {
-        _inhabitants.emplace_back(std::move(npc));
+        _inhabitants[npc->getId()] = std::move(npc);
         return _inhabitants.size();
     }
 
@@ -46,13 +54,17 @@ public:
 
     friend std::ostream& operator<<(std::ostream& os, const Village& v);
 
+    VillageAction playAction();
+
+    friend std::ostream& operator<<(std::ostream& stream, const Village& village);
 private:
     const std::string _name;
     int _age;
     int _creationDate;
     std::vector<NpcMemorial> _memorials;
-    std::vector<std::unique_ptr<Npc>> _inhabitants;
+    std::map<long, std::unique_ptr<Npc>> _inhabitants;
 
+    NpcRelationSystem _relationSystem;
 };
 
 

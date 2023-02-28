@@ -16,7 +16,7 @@ Village::~Village() {
 
 void Village::nextYearHandler() {
     for (auto iterator = _inhabitants.begin(); iterator != _inhabitants.end();) {
-        auto& npc = **iterator;
+        auto& npc = *iterator->second;
         npc.growOlder();
 
         if (!npc.isAlive()) {
@@ -42,7 +42,7 @@ int Village::getMemorialSize() const {
 int Village::getAliveInhabitantsAmount() const {
     int result = 0;
     for (const auto &item: _inhabitants) {
-        if (item->getLifeState() == ELifeState::Alive) {
+        if (item.second->getLifeState() == ELifeState::Alive) {
             result++;
         }
     }
@@ -55,7 +55,7 @@ std::string Village::to_string() const {
     result << "Village " << _name << " informations:\n";
     result << "Inhabitants:\t{" << getVillageSize() << "}\n";
     for (const auto &npc: _inhabitants) {
-        result << "* " << npc->to_string() << "\n";
+        result << "* " << npc.second->to_string() << "[" << npc.second->getId() << "]" << "\n";
     }
     result << "Memorials:\t{" << getMemorialSize() << "}\n";
     for (const auto &deadNpc: _memorials) {
@@ -63,12 +63,16 @@ std::string Village::to_string() const {
     }
     result << "Age : " << _age;
 
+    result << "\n";
+
+    result << _relationSystem;
+
     return result.str();
 }
 
 void Village::killAllInhabitants() {
     for (const auto &npc: _inhabitants) {
-        npc->killHandler();
+        npc.second->killHandler();
     }
 }
 
@@ -79,6 +83,51 @@ std::string Village::getName() const {
 std::ostream &operator<<(std::ostream &os, const Village &v) {
     os << v.to_string();
     return os;
+}
+
+
+
+VillageAction Village::playAction() {
+    int actionPrompt;
+    std::cout << "Village " << getName() << "  - Action Handler\n"
+    << "- 0 -   Exit\n"
+    << "- 1 -   Show\n"
+    << "- 1 -   Talk\n"
+    << std::endl;
+
+    std::cin >> actionPrompt;
+
+    switch ((VillageAction) actionPrompt) {
+        case VillageAction::Exit : {
+            return VillageAction::Exit;
+        }
+        case VillageAction::Show : {
+            std::cout << *this << std::endl;
+            return VillageAction::Show;
+        }
+        case VillageAction::Talk : {
+            long npc1, npc2;
+            std::cout << "Enter first npc1 : ";
+            std::cin >> npc1;
+            std::cout << std::endl;
+            std::cout << "Enter second npc2 : ";
+            std::cin >> npc2;
+
+            if (_inhabitants.find(npc1) == _inhabitants.end() || _inhabitants.find(npc2) == _inhabitants.end()) {
+                std::cout << "Error, unknown Id";
+                return VillageAction::Talk;
+            }
+
+            this->_relationSystem.socialInteraction(*_inhabitants[npc1], *_inhabitants[npc2]);
+
+            std::cout << (*_inhabitants[npc1]).getName() << " and " << (*_inhabitants[npc2]).getName()
+            << " talked, their relation is now on : "
+            <<  this->_relationSystem.getRelationShip(*_inhabitants[npc1], *_inhabitants[npc2])
+            << std::endl;
+
+            return VillageAction::Talk;
+        }
+    }
 }
 
 

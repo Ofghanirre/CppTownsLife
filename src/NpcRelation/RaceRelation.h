@@ -5,8 +5,8 @@
 #ifndef TEST1_RACERELATION_H
 #define TEST1_RACERELATION_H
 #include <unordered_map>
-#include "../Npc.h"
-#include "NpcRelation.h"
+#include "../Npc/Npc.h"
+#include "NpcRelationComputer.h"
 
 static const std::unordered_map<ERace, std::unordered_map<ERace, int>> raceOpinion{
         {
@@ -59,9 +59,9 @@ static const std::unordered_map<ERace, std::unordered_map<ERace, int>> raceOpini
         }
 };
 
-class RaceRelation : NpcRelation {
+class RaceRelation {
 public:
-    int getRelation(Npc& main, Npc& other) const override {
+    int getRelation(Npc& main, Npc& other) const {
         auto mainData = raceOpinion.find(main.getRace());
         if (mainData != raceOpinion.end()) {
             auto mainRelation = mainData->second;

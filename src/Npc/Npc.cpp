@@ -65,6 +65,20 @@ void Npc::killHandler() {
     onKilled();
 }
 
+void Npc::talkWith(Npc &npc) {
+    std::cout << this->getName() << " interacts with " << npc.getName() << std::endl;
+    socialInteraction(npc);
+    std::cout << "Interaction finished !\n" << "Relation between " << this->getName() << " and " << npc.getName()
+    << " are now at " << getRelationWith(npc) << std::endl;
+}
+
+int Npc::getRelationWith(Npc &npc) {
+    if (_relationShips.find(npc.getId()) == _relationShips.end()) {
+        initNewRelation(npc);
+    }
+    return _relationShips.at(npc.getId());
+}
+
 
 
 

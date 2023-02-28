@@ -21,6 +21,10 @@ void Undead::onKilled() {
     std::cout << to_string() + " has been put to eternal rest..." << std::endl;
 }
 
-int Undead::getRelation(Npc &npc) const {
+int Undead::initNewRelation(Npc &npc) const {
     return 0;
+}
+
+void Undead::socialInteraction(Npc &other) {
+
 }

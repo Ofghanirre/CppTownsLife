@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <vector>
+#include <map>
 
 enum class ERace{
     Unknown = 0,
@@ -93,7 +94,9 @@ public:
 
     virtual void onKilled() = 0;
 
-    virtual int getRelation(Npc& npc) const = 0;
+    int getRelationWith(Npc& npc);
+
+    void talkWith(Npc& npc);
 protected:
     long _id = 0;
 
@@ -103,6 +106,7 @@ protected:
     EGender _gender = EGender::Unknown;
     int _age = 0;
     int _life_span = 0;
+    std::map<long, int> _relationShips;
 
     /* SETTERS
      * Used for child Class implementations
@@ -113,6 +117,9 @@ protected:
     void setGender(EGender gender);
     void setAge(int age);
     void setLifeSpan(int lifespan);
+
+    virtual void socialInteraction(Npc& other) = 0;
+    virtual int initNewRelation(Npc& npc) const = 0;
 };
 
 

@@ -25,7 +25,9 @@ public:
 
     void onKilled() override;
 
-    int getRelation(Npc &npc) const override;
+    int initNewRelation(Npc &npc) const override;
+
+    void socialInteraction(Npc &other) override;
 };
 
 

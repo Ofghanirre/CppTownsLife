@@ -83,8 +83,31 @@ void testWithVillage() {
     std::cout << "The only being remaining within the " << village.getName() << " Village are immortals.\nThe latters abandon the village" << std::endl;
     village.killAllInhabitants();
 }
+
+void testWithVillageAndInteraction() {
+    int year = 1000;
+
+    Village village{"Lyrije", year};
+    village.addNpc(std::make_unique<Human>("Inadriel", EGender::Male, 20));
+    village.addNpc(std::make_unique<Human>("Lidia", EGender::Female, 19));
+    village.addNpc(std::make_unique<Elf>("Lerinor", EGender::Female, 450));
+    village.addNpc(std::make_unique<Spirit>("Har'Kal", EGender::Male));
+    village.addNpc(std::make_unique<Undead>("Mal keshar"));
+
+    std::cout << village << std::endl;
+    while (village.getAliveInhabitantsAmount() > 0) {
+        village.nextYearHandler();
+        std::cout << "New Year " << year << std::endl;
+        if (village.playAction() == VillageAction::Exit) break;
+        year++;
+    }
+    std::cout << village << std::endl;
+
+    std::cout << "The only being remaining within the " << village.getName() << " Village are immortals.\nThe latters abandon the village" << std::endl;
+    village.killAllInhabitants();
+}
 int main() {
     srand(time(0));
-    testWithVillage();
+    testWithVillageAndInteraction();
     return 0;
 }
