@@ -7,8 +7,10 @@
 
 
 #include <map>
+#include <unordered_set>
 #include "../Npc/Npc.h"
 #include "NpcRelationComputer.h"
+#include "NpcCouple/NpcCouple.h"
 
 class NpcRelationSystem {
 public:
@@ -20,6 +22,7 @@ public:
 private:
     NpcRelationComputer _relationComputer;
     std::map<std::pair<long, long>, int> _relationShip;
+    std::unordered_set<NpcCouple> _couples;
 
     void initNewRelation(Npc& npc, Npc& other);
 };

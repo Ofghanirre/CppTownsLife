@@ -1,5 +1,6 @@
 #include <iostream>
 #include <memory>
+#include <unordered_set>
 #include "Npc/Npc.h"
 #include "Npc/Races/Human/Human.h"
 #include "Npc/Races/Elf/Elf.h"

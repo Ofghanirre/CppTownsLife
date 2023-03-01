@@ -25,6 +25,6 @@ int Undead::initNewRelation(Npc &npc) const {
     return 0;
 }
 
-void Undead::socialInteraction(Npc &other) {
-
+int Undead::talkWith(Npc &npc) const {
+    return 0;
 }

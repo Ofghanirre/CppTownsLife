@@ -60,8 +60,11 @@ private:
 
 public:
     virtual std::string say_hi() const = 0;
-
     virtual std::string to_string() const = 0;
+    virtual void growOlder() = 0;
+    virtual void onKilled() = 0;
+    virtual int talkWith(Npc& npc) const = 0;
+
 
     Npc() {
         _id = _current_id++;
@@ -72,31 +75,22 @@ public:
 //        std::cout << "-- NPC <" + std::to_string(getId()) + ">" << std::endl;
     }
 
-    long getId() const;
-
-    ELifeState getLifeState() const;
-
-    ERace getRace() const;
-
-    EGender getGender() const;
-
-    std::string getName() const;
-
-    int getAge() const;
-
-    int getLifeSpan() const;
-
     virtual bool isAlive() const;
-
-    virtual void growOlder() = 0;
-
     void killHandler();
+    virtual bool canBreadWith(Npc& other) const;
 
-    virtual void onKilled() = 0;
+    long getId() const;
+    ELifeState getLifeState() const;
+    ERace getRace() const;
+    EGender getGender() const;
+    std::string getName() const;
+    int getAge() const;
+    int getLifeSpan() const;
+    bool isBreedable() const;
 
-    int getRelationWith(Npc& npc);
 
-    void talkWith(Npc& npc);
+    bool operator==(const Npc& other) const;
+
 protected:
     long _id = 0;
 
@@ -106,7 +100,9 @@ protected:
     EGender _gender = EGender::Unknown;
     int _age = 0;
     int _life_span = 0;
-    std::map<long, int> _relationShips;
+    bool _isBreedable;
+
+    virtual int initNewRelation(Npc& npc) const = 0;
 
     /* SETTERS
      * Used for child Class implementations
@@ -117,10 +113,6 @@ protected:
     void setGender(EGender gender);
     void setAge(int age);
     void setLifeSpan(int lifespan);
-
-    virtual void socialInteraction(Npc& other) = 0;
-    virtual int initNewRelation(Npc& npc) const = 0;
 };
-
 
 #endif //TEST1_NPC_H

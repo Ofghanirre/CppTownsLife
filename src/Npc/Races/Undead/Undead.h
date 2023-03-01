@@ -17,6 +17,7 @@ public:
         _gender = EGender::Unknown;
         _age = -1;
         _life_span = 0;
+        _isBreedable = false;
     }
 
     std::string say_hi() const override;
@@ -29,7 +30,7 @@ public:
 
     int initNewRelation(Npc &npc) const override;
 
-    void socialInteraction(Npc &other) override;
+    int talkWith(Npc& npc) const override;
 };
 
 

@@ -32,8 +32,12 @@ int Human::initNewRelation(Npc &npc) const {
     return 1;
 }
 
-void Human::socialInteraction(Npc &other) {
+int Human::talkWith(Npc &npc) const {
+    return 50;
+}
 
+bool Human::canBreadWith(Npc &other) const {
+    return false;
 }
 
 

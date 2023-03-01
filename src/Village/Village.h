@@ -20,6 +20,7 @@ struct NpcMemorial {
 };
 
 enum class VillageAction {
+    Unknown = -1,
     Exit = 0,
     Show = 1,
     Talk = 2,
@@ -65,6 +66,8 @@ private:
     std::map<long, std::unique_ptr<Npc>> _inhabitants;
 
     NpcRelationSystem _relationSystem;
+
+    VillageAction talkAction();
 };
 
 

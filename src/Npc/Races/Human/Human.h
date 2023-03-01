@@ -28,6 +28,7 @@ public:
         _gender = gender;
         _age = age;
         _life_span = HumanLifespan * (.8 + (rand() % 40) / 100.0);
+        _isBreedable = true;
     }
 
     Human(std::string name, EGender gender) : Human{name, gender, 0} {
@@ -43,7 +44,9 @@ public:
 
     int initNewRelation(Npc &npc) const override;
 
-    void socialInteraction(Npc &other) override;
+    int talkWith(Npc& npc) const override;
+
+    bool canBreadWith(Npc& other) const override;
 };
 
 

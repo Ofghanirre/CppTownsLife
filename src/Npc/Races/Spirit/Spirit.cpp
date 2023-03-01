@@ -25,6 +25,6 @@ int Spirit::initNewRelation(Npc &npc) const {
     return 0;
 }
 
-void Spirit::socialInteraction(Npc &other) {
-
+int Spirit::talkWith(Npc &npc) const {
+    return 0;
 }

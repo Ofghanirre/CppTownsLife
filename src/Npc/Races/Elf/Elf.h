@@ -19,6 +19,7 @@ public:
         _gender = gender;
         _age = age;
         _life_span = ElfLifespan * (.8 + (rand() % 40) / 100.0);
+        _isBreedable = true;
     }
 
     Elf(std::string name, EGender gender) : Elf{name, gender, 0} {
@@ -34,7 +35,9 @@ public:
 
     int initNewRelation(Npc &npc) const override;
 
-    void socialInteraction(Npc &other) override;
+    int talkWith(Npc& npc) const override;
+
+    bool canBreadWith(Npc& other) const override;
 };
 
 

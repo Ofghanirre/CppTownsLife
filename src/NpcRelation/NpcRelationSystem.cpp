@@ -18,9 +18,22 @@ int NpcRelationSystem::getRelationShip(Npc &npc, Npc &other) {
 }
 
 void NpcRelationSystem::socialInteraction(Npc &npc, Npc &other) {
-    auto relation = getPair(npc, other);
-    if (_relationShip.find(relation) == _relationShip.end()) {
+    auto relation1 = getPair(npc, other);
+    auto relation2 = getPair(other, npc);
+
+    if (_relationShip.find(relation1) == _relationShip.end()) {
         initNewRelation(npc, other);
+    }
+    if (_relationShip.find(relation2) == _relationShip.end()) {
+        initNewRelation(other, npc);
+    }
+
+    _relationShip[relation1] += npc.talkWith(other);
+    _relationShip[relation2] += other.talkWith(npc);
+
+    if (_relationShip[relation1] >= 100 && _relationShip[relation2] >= 100) {
+        std::cout << "A new couple has been created !\n" << npc.getName() << " and " << other.getName() << std::endl;
+        _couples.emplace(npc.getId(), other.getId());
     }
 }
 

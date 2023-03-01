@@ -36,6 +36,10 @@ int Npc::getLifeSpan() const {
     return _life_span;
 }
 
+bool Npc::isBreedable() const {
+    return _isBreedable;
+}
+
 void Npc::setName(std::string name) {
     _name = name;
 }
@@ -65,22 +69,13 @@ void Npc::killHandler() {
     onKilled();
 }
 
-void Npc::talkWith(Npc &npc) {
-    std::cout << this->getName() << " interacts with " << npc.getName() << std::endl;
-    socialInteraction(npc);
-    std::cout << "Interaction finished !\n" << "Relation between " << this->getName() << " and " << npc.getName()
-    << " are now at " << getRelationWith(npc) << std::endl;
+bool Npc::operator==(const Npc& other) const {
+    return _id == other._id;
 }
 
-int Npc::getRelationWith(Npc &npc) {
-    if (_relationShips.find(npc.getId()) == _relationShips.end()) {
-        initNewRelation(npc);
-    }
-    return _relationShips.at(npc.getId());
+bool Npc::canBreadWith(Npc& other) const {
+    return _isBreedable;
 }
-
-
-
 
 
 

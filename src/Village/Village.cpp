@@ -55,7 +55,7 @@ std::string Village::to_string() const {
     result << "Village " << _name << " informations:\n";
     result << "Inhabitants:\t{" << getVillageSize() << "}\n";
     for (const auto &npc: _inhabitants) {
-        result << "* " << npc.second->to_string() << "[" << npc.second->getId() << "]" << "\n";
+        result << "* " << npc.second->to_string() << "\t[" << npc.second->getId() << "]" << "\n";
     }
     result << "Memorials:\t{" << getMemorialSize() << "}\n";
     for (const auto &deadNpc: _memorials) {
@@ -85,14 +85,40 @@ std::ostream &operator<<(std::ostream &os, const Village &v) {
     return os;
 }
 
+VillageAction Village::talkAction() {
+    long npc1, npc2;
+    std::cout << "Enter first npc1 : ";
+    std::cin >> npc1;
+    std::cout << std::endl;
+    std::cout << "Enter second npc2 : ";
+    std::cin >> npc2;
 
+    if (_inhabitants.find(npc1) == _inhabitants.end() || _inhabitants.find(npc2) == _inhabitants.end()) {
+        std::cout << "Error, unknown Id" << std::endl ;
+        return VillageAction::Unknown;
+    }
+
+    if (npc1 == npc2) {
+        std::cout << "Error, schyzophrenia is still WIP" << std::endl;
+        return VillageAction::Unknown;
+    }
+
+    this->_relationSystem.socialInteraction(*_inhabitants[npc1], *_inhabitants[npc2]);
+
+    std::cout << (*_inhabitants[npc1]).getName() << " and " << (*_inhabitants[npc2]).getName()
+              << " talked, their relation is now on : "
+              <<  this->_relationSystem.getRelationShip(*_inhabitants[npc1], *_inhabitants[npc2])
+              << std::endl;
+
+    return VillageAction::Talk;
+}
 
 VillageAction Village::playAction() {
     int actionPrompt;
     std::cout << "Village " << getName() << "  - Action Handler\n"
     << "- 0 -   Exit\n"
     << "- 1 -   Show\n"
-    << "- 1 -   Talk\n"
+    << "- 2 -   Talk\n"
     << std::endl;
 
     std::cin >> actionPrompt;
@@ -106,26 +132,10 @@ VillageAction Village::playAction() {
             return VillageAction::Show;
         }
         case VillageAction::Talk : {
-            long npc1, npc2;
-            std::cout << "Enter first npc1 : ";
-            std::cin >> npc1;
-            std::cout << std::endl;
-            std::cout << "Enter second npc2 : ";
-            std::cin >> npc2;
-
-            if (_inhabitants.find(npc1) == _inhabitants.end() || _inhabitants.find(npc2) == _inhabitants.end()) {
-                std::cout << "Error, unknown Id";
-                return VillageAction::Talk;
-            }
-
-            this->_relationSystem.socialInteraction(*_inhabitants[npc1], *_inhabitants[npc2]);
-
-            std::cout << (*_inhabitants[npc1]).getName() << " and " << (*_inhabitants[npc2]).getName()
-            << " talked, their relation is now on : "
-            <<  this->_relationSystem.getRelationShip(*_inhabitants[npc1], *_inhabitants[npc2])
-            << std::endl;
-
-            return VillageAction::Talk;
+            return talkAction();
+        }
+        default: {
+            return VillageAction::Unknown;
         }
     }
 }

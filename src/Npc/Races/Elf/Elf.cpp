@@ -31,6 +31,10 @@ int Elf::initNewRelation(Npc &npc) const {
     return 0;
 }
 
-void Elf::socialInteraction(Npc &other) {
+int Elf::talkWith(Npc &npc) const {
+    return 1;
+}
 
+bool Elf::canBreadWith(Npc &other) const {
+    return false;
 }
