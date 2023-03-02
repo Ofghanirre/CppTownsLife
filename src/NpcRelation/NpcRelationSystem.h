@@ -8,6 +8,7 @@
 
 #include <map>
 #include <unordered_set>
+#include <memory>
 #include "../Npc/Npc.h"
 #include "NpcRelationComputer.h"
 #include "NpcCouple/NpcCouple.h"
@@ -19,6 +20,11 @@ public:
     int getRelationShip(Npc& npc, Npc& other);
 
     friend std::ostream& operator<<(std::ostream& stream, const NpcRelationSystem& village);
+
+    const std::unordered_set<NpcCouple>& getCouples() const;
+
+    std::unique_ptr<Npc> makeBaby(const Npc& parent1, const Npc& parent2);
+
 private:
     NpcRelationComputer _relationComputer;
     std::map<std::pair<long, long>, int> _relationShip;

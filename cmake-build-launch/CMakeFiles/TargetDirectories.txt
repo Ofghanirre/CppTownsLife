@@ -1,0 +1,3 @@
+C:/Users/ofgha/OneDrive/Documents/prog/Custom/CppTownsLife/cmake-build-launch/CMakeFiles/Test1.dir
+C:/Users/ofgha/OneDrive/Documents/prog/Custom/CppTownsLife/cmake-build-launch/CMakeFiles/edit_cache.dir
+C:/Users/ofgha/OneDrive/Documents/prog/Custom/CppTownsLife/cmake-build-launch/CMakeFiles/rebuild_cache.dir

@@ -5,7 +5,8 @@
 #include <sstream>
 #include "Village.h"
 
-Village::Village(const std::string& name, const int creation_date) : _name(name), _age(0), _creationDate{creation_date} {
+Village::Village(const std::string& name, const int creation_date) : _name(name), _age(0), _creationDate{creation_date}
+{
     std::cout << "On the year " << creation_date << " a new community shine! " << "Behold the Village " << name << "!" << std::endl;
 }
 
@@ -28,6 +29,13 @@ void Village::nextYearHandler() {
             continue;
         }
         iterator++;
+    }
+
+    for (const auto &couple: _relationSystem.getCouples()) {
+        auto pair = couple.getCouple();
+        auto child = _relationSystem.makeBaby(*_inhabitants[pair.first], *_inhabitants[pair.second]);
+        _inhabitants.emplace(child->getId(), std::move(child));
+        std::cout << " A new child is born !!" << std::endl;
     }
     _age++;
 }
@@ -138,6 +146,13 @@ VillageAction Village::playAction() {
             return VillageAction::Unknown;
         }
     }
+}
+
+Npc& Village::getNpc(long npcId) {
+    if (_inhabitants.find(npcId) == _inhabitants.end()) {
+        throw std::invalid_argument("Id " + std::to_string(npcId) + " invalid.");
+    }
+    return *_inhabitants.at(npcId);
 }
 
 

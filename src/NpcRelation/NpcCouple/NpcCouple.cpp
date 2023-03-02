@@ -3,3 +3,7 @@
 //
 
 #include "NpcCouple.h"
+
+std::pair<long, long> NpcCouple::getCouple() const {
+    return {_idMate1, _idMate2};
+}

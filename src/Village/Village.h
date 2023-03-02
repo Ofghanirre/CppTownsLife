@@ -27,10 +27,20 @@ enum class VillageAction {
 };
 
 
+using NpcMemorials = std::vector<NpcMemorial>;
+using NpcMap = std::map<long, std::unique_ptr<Npc>>;
+
 class Village {
 public:
+
     explicit Village(const std::string& name, const int creation_date);
 
+
+//    static Village* createVillage(const std::string& name, const int creation_date) {
+//        Village* result = new Village(name, creation_date);
+//        result->_relationSystem = {result};
+//        return result;
+//    }
 ~Village();
 
     int getVillageSize() const;
@@ -42,6 +52,8 @@ public:
         _inhabitants[npc->getId()] = std::move(npc);
         return _inhabitants.size();
     }
+
+    Npc & getNpc(long);
 
     int getAliveInhabitantsAmount() const;
 
@@ -59,11 +71,12 @@ public:
 
     friend std::ostream& operator<<(std::ostream& stream, const Village& village);
 private:
+
     const std::string _name;
     int _age;
     int _creationDate;
-    std::vector<NpcMemorial> _memorials;
-    std::map<long, std::unique_ptr<Npc>> _inhabitants;
+    NpcMemorials _memorials;
+    NpcMap _inhabitants;
 
     NpcRelationSystem _relationSystem;
 

@@ -21,6 +21,8 @@ public:
 
     }
 
+    std::pair<long, long> getCouple() const;
+
     bool operator==(const NpcCouple& other) const {
         return other._idMate1 == _idMate1 && other._idMate2 == _idMate2;
     }

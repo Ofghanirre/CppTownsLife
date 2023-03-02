@@ -9,6 +9,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include <memory>
 
 enum class ERace{
     Unknown = 0,
@@ -64,7 +65,6 @@ public:
     virtual void growOlder() = 0;
     virtual void onKilled() = 0;
     virtual int talkWith(Npc& npc) const = 0;
-
 
     Npc() {
         _id = _current_id++;
