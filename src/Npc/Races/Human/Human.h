@@ -29,6 +29,8 @@ public:
         _age = age;
         _life_span = HumanLifespan * (.8 + (rand() % 40) / 100.0);
         _isBreedable = true;
+        _breedStartAge = 16;
+        _breedStopAge = 55;
     }
 
     Human(std::string name, EGender gender) : Human{name, gender, 0} {

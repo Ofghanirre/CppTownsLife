@@ -1,12 +1,13 @@
 #include <iostream>
 #include <memory>
-#include <unordered_set>
 #include "Npc/Npc.h"
 #include "Npc/Races/Human/Human.h"
 #include "Npc/Races/Elf/Elf.h"
 #include "Npc/Races/Undead/Undead.h"
 #include "Npc/Races/Spirit/Spirit.h"
 #include "Village/Village.h"
+
+using namespace std;
 
 bool atLeastOneAlive(std::vector<std::unique_ptr<Npc>>& npcVector) {
     for (const auto &npc: npcVector) {
@@ -87,23 +88,33 @@ void testWithVillage() {
 
 void testWithVillageAndInteraction() {
     int year = 1000;
+    string villageName;
+    Logger logger{"Game"};
 
-    Village village{"Lyrije", year};
-    village.addNpc(std::make_unique<Human>("Inadriel", EGender::Male, 20));
-    village.addNpc(std::make_unique<Human>("Lidia", EGender::Female, 19));
-    village.addNpc(std::make_unique<Elf>("Lerinor", EGender::Female, 450));
-    village.addNpc(std::make_unique<Spirit>("Har'Kal", EGender::Male));
-    village.addNpc(std::make_unique<Undead>("Mal keshar"));
+    logger.logln(LogLevel::Info, "Prolog")
+    << "With the danger of the world of Aeshan, it is wise to join forces and survive together...\n"
+    << "It is the choice made by a bunch of individuals gathered around a fire spot.\n"
+    << "\n"
+    << "A new Village is about to be created, but what should we call it?\n"
+    << "\n"
+    << "[Name] > ";
+    cin >> villageName;
+    cout << endl;
+    Village village{villageName, year};
+    village.addNpc(make_unique<Human>("Inadriel", EGender::Male, 20));
+    village.addNpc(make_unique<Human>("Lidia", EGender::Female, 19));
+    village.addNpc(make_unique<Elf>("Lerinor", EGender::Female, 450));
+    village.addNpc(make_unique<Spirit>("Har'Kal", EGender::Male));
+    village.addNpc(make_unique<Undead>("Mal keshar"));
 
-    std::cout << village << std::endl;
     while (village.getAliveInhabitantsAmount() > 0) {
         village.nextYearHandler();
-        std::cout << "New Year " << year << std::endl;
         if (village.playAction() == VillageAction::Exit) break;
-        year++;
+        logger.logln(LogLevel::Info, "New Year : " + std::to_string(++year));
     }
-    std::cout << village << std::endl;
+    std::cout << "\n\n" << village << std::endl;
 
+    logger.logln(LogLevel::Info, "Informations");
     std::cout << "The only being remaining within the " << village.getName() << " Village are immortals.\nThe latters abandon the village" << std::endl;
     village.killAllInhabitants();
 }

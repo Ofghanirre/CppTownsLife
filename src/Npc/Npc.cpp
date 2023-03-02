@@ -37,7 +37,7 @@ int Npc::getLifeSpan() const {
 }
 
 bool Npc::isBreedable() const {
-    return _isBreedable;
+    return _isBreedable && _age >= _breedStartAge && _age < _breedStopAge;
 }
 
 void Npc::setName(std::string name) {

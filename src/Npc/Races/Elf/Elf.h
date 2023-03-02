@@ -14,12 +14,14 @@ private:
 public:
     Elf(std::string name, EGender gender, int age) : Npc{} {
         _lifeState = ELifeState::Alive;
-        _race = ERace::Human;
+        _race = ERace::Elf;
         _name = name;
         _gender = gender;
         _age = age;
         _life_span = ElfLifespan * (.8 + (rand() % 40) / 100.0);
         _isBreedable = true;
+        _breedStartAge = 40;
+        _breedStopAge = 400;
     }
 
     Elf(std::string name, EGender gender) : Elf{name, gender, 0} {

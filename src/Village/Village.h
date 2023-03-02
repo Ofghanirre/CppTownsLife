@@ -11,6 +11,7 @@
 #include <memory>
 #include "../Npc/Npc.h"
 #include "../NpcRelation/NpcRelationSystem.h"
+#include "../Logger/Logger.h"
 
 struct NpcMemorial {
     std::string _name;
@@ -22,8 +23,9 @@ struct NpcMemorial {
 enum class VillageAction {
     Unknown = -1,
     Exit = 0,
-    Show = 1,
-    Talk = 2,
+    None = 1,
+    Show = 2,
+    Talk = 3,
 };
 
 
@@ -79,6 +81,7 @@ private:
     NpcMap _inhabitants;
 
     NpcRelationSystem _relationSystem;
+    Logger _logger;
 
     VillageAction talkAction();
 };

@@ -88,7 +88,6 @@ public:
     int getLifeSpan() const;
     bool isBreedable() const;
 
-
     bool operator==(const Npc& other) const;
 
 protected:
@@ -100,7 +99,9 @@ protected:
     EGender _gender = EGender::Unknown;
     int _age = 0;
     int _life_span = 0;
-    bool _isBreedable;
+    bool _isBreedable = false;
+    int _breedStartAge = 0;
+    int _breedStopAge = 0;
 
     virtual int initNewRelation(Npc& npc) const = 0;
 
