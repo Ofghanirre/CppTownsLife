@@ -36,7 +36,7 @@ void Village::nextYearHandler() {
 
     for (const auto &couple: _relationSystem.getCouples()) {
         auto pair = couple.getCouple();
-        if (( rand() % 100 ) == 42) {
+        if (( rand() % 100 ) != 42) {
             auto child = _relationSystem.makeBaby(*_inhabitants[pair.first], *_inhabitants[pair.second]);
             _logger.logln(LogLevel::Info, "New Child");
             std::cout << _inhabitants.at(pair.first)->getName() + " and " +  _inhabitants.at(pair.second)->getName() +" gave birth to " + child->getName() + "!" << std::endl;

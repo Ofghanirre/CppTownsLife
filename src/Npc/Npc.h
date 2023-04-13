@@ -68,11 +68,13 @@ public:
 
     Npc() {
         _id = _current_id++;
-//        std::cout << "++ NPC <" + std::to_string(getId()) + ">" << std::endl;
+        // For ownership debug
+        //        std::cout << "++ NPC <" + std::to_string(getId()) + ">" << std::endl;
     }
 
     virtual ~Npc() {
-//        std::cout << "-- NPC <" + std::to_string(getId()) + ">" << std::endl;
+        // For ownership debug
+        //std::cout << "-- NPC <" + std::to_string(getId()) + ">" << std::endl;
     }
 
     virtual bool isAlive() const;
