@@ -6,6 +6,7 @@
 #include "Npc/Races/Undead/Undead.h"
 #include "Npc/Races/Spirit/Spirit.h"
 #include "Village/Village.h"
+#include "GameController.h"
 
 using namespace std;
 
@@ -118,8 +119,12 @@ void testWithVillageAndInteraction() {
     std::cout << "The only being remaining within the " << village.getName() << " Village are immortals.\nThe latters abandon the village" << std::endl;
     village.killAllInhabitants();
 }
+
+void testWithGameController() {
+    GameController controller = GameController::initNew();
+}
 int main() {
     srand(time(0));
-    testWithVillageAndInteraction();
+    testWithGameController();
     return 0;
 }
