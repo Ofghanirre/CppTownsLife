@@ -8,6 +8,8 @@
 
 #include <iostream>
 #include <vector>
+#include <map>
+#include <memory>
 
 enum class ERace{
     Unknown = 0,
@@ -59,41 +61,37 @@ private:
 
 public:
     virtual std::string say_hi() const = 0;
-
     virtual std::string to_string() const = 0;
+    virtual void growOlder() = 0;
+    virtual void onKilled() = 0;
+    virtual int talkWith(Npc& npc) const = 0;
 
     Npc() {
         _id = _current_id++;
-//        std::cout << "++ NPC <" + std::to_string(getId()) + ">" << std::endl;
+        // For ownership debug
+        //        std::cout << "++ NPC <" + std::to_string(getId()) + ">" << std::endl;
     }
 
     virtual ~Npc() {
-//        std::cout << "-- NPC <" + std::to_string(getId()) + ">" << std::endl;
+        // For ownership debug
+        //std::cout << "-- NPC <" + std::to_string(getId()) + ">" << std::endl;
     }
 
-    long getId() const;
-
-    ELifeState getLifeState() const;
-
-    ERace getRace() const;
-
-    EGender getGender() const;
-
-    std::string getName() const;
-
-    int getAge() const;
-
-    int getLifeSpan() const;
-
     virtual bool isAlive() const;
-
-    virtual void growOlder() = 0;
-
     void killHandler();
+    virtual bool canBreadWith(Npc& other) const;
 
-    virtual void onKilled() = 0;
+    long getId() const;
+    ELifeState getLifeState() const;
+    ERace getRace() const;
+    EGender getGender() const;
+    std::string getName() const;
+    int getAge() const;
+    int getLifeSpan() const;
+    bool isBreedable() const;
 
-    virtual int getRelation(Npc& npc) const = 0;
+    bool operator==(const Npc& other) const;
+
 protected:
     long _id = 0;
 
@@ -103,6 +101,11 @@ protected:
     EGender _gender = EGender::Unknown;
     int _age = 0;
     int _life_span = 0;
+    bool _isBreedable = false;
+    int _breedStartAge = 0;
+    int _breedStopAge = 0;
+
+    virtual int initNewRelation(Npc& npc) const = 0;
 
     /* SETTERS
      * Used for child Class implementations
@@ -114,6 +117,5 @@ protected:
     void setAge(int age);
     void setLifeSpan(int lifespan);
 };
-
 
 #endif //TEST1_NPC_H

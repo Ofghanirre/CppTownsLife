@@ -36,6 +36,10 @@ int Npc::getLifeSpan() const {
     return _life_span;
 }
 
+bool Npc::isBreedable() const {
+    return _isBreedable && _age >= _breedStartAge && _age < _breedStopAge;
+}
+
 void Npc::setName(std::string name) {
     _name = name;
 }
@@ -65,8 +69,13 @@ void Npc::killHandler() {
     onKilled();
 }
 
+bool Npc::operator==(const Npc& other) const {
+    return _id == other._id;
+}
 
-
+bool Npc::canBreadWith(Npc& other) const {
+    return _isBreedable;
+}
 
 
 

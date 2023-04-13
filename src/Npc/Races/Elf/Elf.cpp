@@ -27,6 +27,14 @@ void Elf::onKilled() {
     std::cout << to_string() + " joined the stars at the growOlder of " + std::to_string(_age) << std::endl;
 }
 
-int Elf::getRelation(Npc &npc) const {
+int Elf::initNewRelation(Npc &npc) const {
     return 0;
+}
+
+int Elf::talkWith(Npc &npc) const {
+    return 1;
+}
+
+bool Elf::canBreadWith(Npc &other) const {
+    return false;
 }

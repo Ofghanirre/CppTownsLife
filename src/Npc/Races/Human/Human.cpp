@@ -28,8 +28,16 @@ void Human::onKilled() {
     std::cout << to_string() + " passed away at the growOlder of " + std::to_string(_age) << std::endl;
 }
 
-int Human::getRelation(Npc &npc) const {
-    return 0;
+int Human::initNewRelation(Npc &npc) const {
+    return 1;
+}
+
+int Human::talkWith(Npc &npc) const {
+    return 50;
+}
+
+bool Human::canBreadWith(Npc &other) const {
+    return false;
 }
 
 

@@ -17,6 +17,7 @@ public:
         _gender = EGender::Unknown;
         _age = -1;
         _life_span = 0;
+        _isBreedable = false;
     }
 
     std::string say_hi() const override;
@@ -27,7 +28,9 @@ public:
 
     void onKilled() override;
 
-    int getRelation(Npc &npc) const override;
+    int initNewRelation(Npc &npc) const override;
+
+    int talkWith(Npc& npc) const override;
 };
 
 

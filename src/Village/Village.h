@@ -10,6 +10,8 @@
 #include <vector>
 #include <memory>
 #include "../Npc/Npc.h"
+#include "../NpcRelation/NpcRelationSystem.h"
+#include "../Logger/Logger.h"
 
 struct NpcMemorial {
     std::string _name;
@@ -18,10 +20,29 @@ struct NpcMemorial {
     int death_date;
 };
 
+enum class VillageAction {
+    Unknown = -1,
+    Exit = 0,
+    None = 1,
+    Show = 2,
+    Talk = 3,
+};
+
+
+using NpcMemorials = std::vector<NpcMemorial>;
+using NpcMap = std::map<long, std::unique_ptr<Npc>>;
+
 class Village {
 public:
+
     explicit Village(const std::string& name, const int creation_date);
 
+
+//    static Village* createVillage(const std::string& name, const int creation_date) {
+//        Village* result = new Village(name, creation_date);
+//        result->_relationSystem = {result};
+//        return result;
+//    }
 ~Village();
 
     int getVillageSize() const;
@@ -30,9 +51,11 @@ public:
 
 
     int addNpc(std::unique_ptr<Npc> npc) {
-        _inhabitants.emplace_back(std::move(npc));
+        _inhabitants[npc->getId()] = std::move(npc);
         return _inhabitants.size();
     }
+
+    Npc & getNpc(long);
 
     int getAliveInhabitantsAmount() const;
 
@@ -46,13 +69,21 @@ public:
 
     friend std::ostream& operator<<(std::ostream& os, const Village& v);
 
+    VillageAction playAction();
+
+    friend std::ostream& operator<<(std::ostream& stream, const Village& village);
 private:
+
     const std::string _name;
     int _age;
     int _creationDate;
-    std::vector<NpcMemorial> _memorials;
-    std::vector<std::unique_ptr<Npc>> _inhabitants;
+    NpcMemorials _memorials;
+    NpcMap _inhabitants;
 
+    NpcRelationSystem _relationSystem;
+    Logger _logger;
+
+    VillageAction talkAction();
 };
 
 

@@ -15,6 +15,7 @@ public:
         _name = name;
         _gender = gender;
         _lifeState = ELifeState::Immortal;
+        _isBreedable = false;
     }
 
     std::string to_string() const override;
@@ -25,7 +26,9 @@ public:
 
     void onKilled() override;
 
-    int getRelation(Npc &npc) const override;
+    int initNewRelation(Npc &npc) const override;
+
+    int talkWith(Npc& npc) const override;
 };
 
 

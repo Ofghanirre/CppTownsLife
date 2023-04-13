@@ -21,6 +21,10 @@ void Spirit::onKilled() {
     std::cout << to_string() + " faded away into unknown realms..." << std::endl;
 }
 
-int Spirit::getRelation(Npc &npc) const {
+int Spirit::initNewRelation(Npc &npc) const {
+    return 0;
+}
+
+int Spirit::talkWith(Npc &npc) const {
     return 0;
 }
