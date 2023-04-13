@@ -12,6 +12,9 @@ Village::Village(const std::string& name, const int creation_date) : _name(name)
     std::cout << "On the year " << creation_date << " a new community shine! " << "Behold the Village " << name << "!" << std::endl;
 }
 
+Village::Village(const Village &pVillage) : Village(pVillage._name, pVillage._creationDate){}
+
+
 Village::~Village() {
     _logger.logln(LogLevel::Info, "End Village");
     std::cout << "The Village " << _name << " has faded into darkness after " << _age << " years..." << std::endl;
@@ -182,3 +185,10 @@ VillageAction Village::playAction() {
     std::cout << "-*-" << std::endl;
     return result;
 }
+
+int Village::getCreationDate() const {
+    return _creationDate;
+}
+
+
+
