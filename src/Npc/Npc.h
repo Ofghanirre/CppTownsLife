@@ -28,6 +28,10 @@ inline std::string getRaceRepr(ERace race) {
     }
 }
 
+inline std::vector<ERace> getAllRace() {
+    return {ERace::Human, ERace::Elf, ERace::Undead, ERace::Spirit};
+}
+
 enum class EGender {
     Unknown = 0,
     Male,
@@ -35,10 +39,14 @@ enum class EGender {
 };
 inline std::string getGenderRepr(EGender gender) {
     switch (gender) {
-        case EGender::Male          : return "\u2642";
-        case EGender::Female        : return "\u2640";
+        case EGender::Male          : return "MALE";
+        case EGender::Female        : return "FEMALE";
         default                     : return "<?>";
     }
+}
+
+inline std::vector<EGender> getAllGender() {
+    return {EGender::Male, EGender::Female};
 }
 
 enum class ELifeState {
