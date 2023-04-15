@@ -7,6 +7,7 @@
 #include "Npc/Races/Spirit/Spirit.h"
 #include "Village/Village.h"
 #include "GameController.h"
+#include "utils/Utils.h"
 
 using namespace std;
 
@@ -122,6 +123,12 @@ void testWithVillageAndInteraction() {
 
 void testWithGameController() {
     GameController controller = GameController::initNew();
+}
+
+void testNameGenerator() {
+    for (int i = 0; i < 100; i++) {
+        cout << NpcNameGenerator::generateNewName(ERace::Human, 1, 5) << endl;
+    }
 }
 int main() {
     srand(time(0));
