@@ -13,8 +13,8 @@ class NpcNameGenerator {
 public:
     static string generateNewName(ERace race, int syllablesMinLength, int syllablesMaxLength);
 private:
-    static const map<ERace, vector<string>> init();
-    static const map<ERace, vector<string>> _names;
+    static map<ERace, vector<string>> init();
+    static map<ERace, vector<string>> _names;
     static const map<string, string> _placeholders;
 
     static std::vector<std::string> readSyllablesFromFile(const string &filePath);

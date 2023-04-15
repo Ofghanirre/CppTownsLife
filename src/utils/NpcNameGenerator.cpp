@@ -19,6 +19,8 @@ std::vector<std::string> NpcNameGenerator::readSyllablesFromFile(const string &f
     }
     std::string syllable;
     while (getline(file, syllable)) {
+        auto s = remove(syllable.begin(), syllable.end(), '\r');    // IF CRLF FORMAT
+        syllable.erase(s, syllable.end());                                                  // delete \r end
         if (_placeholders.contains(syllable)) {
             syllables.push_back(_placeholders.at(syllable));
         } else syllables.push_back(syllable);
@@ -43,11 +45,11 @@ std::string getFilePathFromRace(ERace race) {
 
 std::string generateRandomName(ERace race, const int numSyllables, const std::vector<std::string>& syllables) {
     std::string name;
+    std::string s;
     for (int i = 0; i < numSyllables; i++) {
         int randomIndex;
-        std::string s;
         do {
-            randomIndex = rand() % syllables.size();
+            randomIndex = random_between(0, syllables.size());
             s = syllables[randomIndex];
         } while ((i == 0 || i == numSyllables - 1) && (s == " " || s == "-"));
         name += s;
@@ -59,7 +61,7 @@ string NpcNameGenerator::generateNewName(ERace race, int syllablesMinLength, int
     return generateRandomName(race, random_between(syllablesMinLength, syllablesMaxLength), _names.at(race));
 }
 
-const map<ERace, vector<string>> NpcNameGenerator::init() {
+map<ERace, vector<std::string>> NpcNameGenerator::init() {
     auto result = map<ERace, vector<string>>();
     for (const auto &race: getAllRace()) {
         result[race] = readSyllablesFromFile(getFilePathFromRace(race));
@@ -68,4 +70,4 @@ const map<ERace, vector<string>> NpcNameGenerator::init() {
     return result;
 }
 
-const map<ERace, vector<string>> NpcNameGenerator::_names = NpcNameGenerator::init();
+map<ERace, vector<string>> NpcNameGenerator::_names = NpcNameGenerator::init();

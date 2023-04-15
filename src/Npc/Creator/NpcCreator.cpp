@@ -61,8 +61,8 @@ unique_ptr<Undead> NpcCreator::initNewUndead(std::string name) {
 unique_ptr<Npc> NpcCreator::initNewRandomNpc() {
     static auto races = getAllRace();
     static auto genders = getAllGender();
-    ERace race = races[random_between(0, 2)];
-    std::string name = NpcNameGenerator::generateNewName(race, 1, 3);
+    ERace race = races[random_between(0, races.size())];
+    std::string name = NpcNameGenerator::generateNewName(race, MIN_SYLLABLES, MAX_SYLLABLES);
     EGender gender = genders[random_between(0, genders.size())];
     switch (race) {
         case ERace::Human:

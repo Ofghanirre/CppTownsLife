@@ -13,6 +13,9 @@
 #include "../Races/Spirit/Spirit.h"
 #include "../Races/Undead/Undead.h"
 
+#define MIN_SYLLABLES 1
+#define MAX_SYLLABLES 3
+
 using namespace std;
 
 class NpcCreator {
