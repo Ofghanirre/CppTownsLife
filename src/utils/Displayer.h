@@ -13,6 +13,10 @@
 
 using namespace std;
 
+
+inline auto displayer_identity = [](const auto& str) { return str; };
+inline auto displayer_truth = [](const auto v){return true;};
+
 template<typename T>
 string join(const vector<T> &vec, const string &delimiter, function<string(T)> mappingFunction, bool enumerate) {
     ostringstream ss;
