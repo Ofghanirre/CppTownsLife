@@ -9,7 +9,7 @@
 #include "utils/RpgDate.h"
 #include "Village/Village.h"
 
-#define VILLAGER_START_AMOUNT 1
+#define VILLAGER_START_AMOUNT 10
 
 using namespace std;
 
