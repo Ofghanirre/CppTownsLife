@@ -10,6 +10,8 @@
 #include <vector>
 #include <map>
 #include <memory>
+#include <cstdlib>
+
 
 enum class ERace{
     Unknown = 0,
@@ -99,6 +101,10 @@ public:
     bool isBreedable() const;
 
     bool operator==(const Npc& other) const;
+
+    static const std::string getNpcNameFile() {
+        return "resources/npcNames/Default.txt";
+    }
 
 protected:
     long _id = 0;

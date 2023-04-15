@@ -29,6 +29,10 @@ public:
     int initNewRelation(Npc &npc) const override;
 
     int talkWith(Npc& npc) const override;
+
+    static const std::string getNpcNameFile() {
+        return "resources/npcNames/Spirit.txt";
+    }
 };
 
 
