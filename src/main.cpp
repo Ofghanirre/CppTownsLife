@@ -7,6 +7,7 @@ using namespace std;
 
 void testWithGameController() {
     GameController controller = GameController::initNew();
+    controller.start();
 }
 
 void testNameGenerator() {
