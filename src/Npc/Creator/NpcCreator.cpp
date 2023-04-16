@@ -10,8 +10,8 @@ Logger NpcCreator::logger{"NpcCreator"};
 
 
 unique_ptr<Npc> NpcCreator::initNewCustomNpc() {
-    vector<ERace> races = getAllRace();
-    ERace choice = choose<ERace>(logger, "Select the Race of the Npc", races, getRaceRepr);
+    vector<ERace> races = NpcRace::getAll();
+    ERace choice = choose<ERace>(logger, "Select the Race of the Npc", races, NpcRace::to_string);
     switch (choice) {
         case ERace::Human:
             return initNewHuman(initNewCustomName(), initNewCustomGender(), initNewCustomAge());
@@ -33,8 +33,8 @@ string NpcCreator::initNewCustomName() {
 }
 
 EGender NpcCreator::initNewCustomGender() {
-    vector<EGender> genders = getAllGender();
-    return choose<EGender>(logger, "What would be the gender of the Npc?", genders, getGenderRepr, true);
+    vector<EGender> genders = NpcGender::getAll();
+    return choose<EGender>(logger, "What would be the gender of the Npc?", genders, NpcGender::to_string, true);
 }
 
 int NpcCreator::initNewCustomAge() {
@@ -59,8 +59,8 @@ unique_ptr<Undead> NpcCreator::initNewUndead(std::string name) {
 
 
 unique_ptr<Npc> NpcCreator::initNewRandomNpc() {
-    static auto races = getAllRace();
-    static auto genders = getAllGender();
+    static auto races = NpcRace::getAll();
+    static auto genders = NpcGender::getAll();
     ERace race = races[random_between(0, races.size())];
     std::string name = NpcNameGenerator::generateNewName(race, MIN_SYLLABLES, MAX_SYLLABLES);
     EGender gender = genders[random_between(0, genders.size())];
