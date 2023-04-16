@@ -5,7 +5,7 @@
 #include "Spirit.h"
 
 std::string Spirit::to_string() const {
-    return "["+ getRaceRepr(_race) +" "+ getGenderRepr(_gender) + " ] " + _name ;
+    return "[" + NpcRace::to_string(_race) + " " + NpcGender::to_string(_gender) + " ] " + _name ;
 }
 
 std::string Spirit::say_hi() const {

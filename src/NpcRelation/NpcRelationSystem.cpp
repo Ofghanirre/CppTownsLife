@@ -69,7 +69,7 @@ std::unique_ptr<Npc> NpcRelationSystem::makeBaby(const Npc &parent1, const Npc &
             return std::make_unique<Elf>(childName, childGender, 0);
         }
         default: {
-            throw std::invalid_argument("The race " + getRaceRepr(childRace) + " has no implementation for child making");
+            throw std::invalid_argument("The race " + NpcRace::to_string(childRace) + " has no implementation for child making");
         }
     }
 }

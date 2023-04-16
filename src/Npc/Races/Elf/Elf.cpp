@@ -11,7 +11,7 @@ std::string Elf::say_hi() const {
 }
 
 std::string Elf::to_string() const {
-    return "["+ getRaceRepr(_race) +" "+ getGenderRepr(_gender) + " ] " + _name ;
+    return "[" + NpcRace::to_string(_race) + " " + NpcGender::to_string(_gender) + " ] " + _name ;
 }
 
 void Elf::growOlder() {

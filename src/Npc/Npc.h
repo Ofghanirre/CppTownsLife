@@ -10,50 +10,10 @@
 #include <vector>
 #include <map>
 #include <memory>
-
-enum class ERace{
-    Unknown = 0,
-    Human,
-    Elf,
-    Undead,
-    Spirit
-};
-inline std::string getRaceRepr(ERace race) {
-    switch (race) {
-        case ERace::Human       : return "HUMAN";
-        case ERace::Elf         : return "ELF";
-        case ERace::Undead      : return "UNDEAD";
-        case ERace::Spirit      : return "SPIRIT";
-        default                 : return "UNKNOWN";
-    }
-}
-
-enum class EGender {
-    Unknown = 0,
-    Male,
-    Female
-};
-inline std::string getGenderRepr(EGender gender) {
-    switch (gender) {
-        case EGender::Male          : return "\u2642";
-        case EGender::Female        : return "\u2640";
-        default                     : return "<?>";
-    }
-}
-
-enum class ELifeState {
-    Dead = 0,
-    Alive = 1,
-    Immortal = 2,
-};
-inline std::string getLifeStateRepr(ELifeState lifeState) {
-    switch (lifeState) {
-        case ELifeState::Dead       : return "DEAD";
-        case ELifeState::Alive      : return "ALIVE";
-        case ELifeState::Immortal   : return "IMMORTAL";
-    }
-}
-
+#include <cstdlib>
+#include "Races/ERace.h"
+#include "EGender.h"
+#include "ELifeState.h"
 
 class Npc {
 private:

@@ -17,10 +17,9 @@
 static const std::unordered_map<ERace, int> human_racialRelation{{ERace::Human, 0}, {ERace::Elf, -5}, {ERace::Spirit, 5}, {ERace::Undead, -10}};
 
 class Human : public Npc {
-private:
+public:
     static inline const int HumanLifespan = 60;
 
-public:
     Human(std::string name, EGender gender, int age) : Npc{} {
         _lifeState = ELifeState::Alive;
         _race = ERace::Human;

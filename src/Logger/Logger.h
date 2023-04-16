@@ -27,15 +27,15 @@ public:
     explicit Logger(const std::string context) : _context{context} {}
 
 public:
-    std::ostream& log(std::ostream& stream, LogLevel logtype, std::string message);
+    std::ostream& log(std::ostream& stream, LogLevel logtype, std::string message) const;
 
-    std::ostream& log(LogLevel logtype, std::string message) {
+    std::ostream& log(LogLevel logtype, std::string message) const {
         return log(std::cout, logtype, message);
     }
 
-    std::ostream& logln(std::ostream& stream, LogLevel logtype, std::string message);
+    std::ostream& logln(std::ostream& stream, LogLevel logtype, std::string message) const;
 
-    std::ostream& logln(LogLevel logtype, std::string message) {
+    std::ostream& logln(LogLevel logtype, std::string message) const{
         return logln(std::cout, logtype, message);
     }
 private:

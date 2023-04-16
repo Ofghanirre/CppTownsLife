@@ -34,9 +34,8 @@ using NpcMap = std::map<long, std::unique_ptr<Npc>>;
 
 class Village {
 public:
-
     explicit Village(const std::string& name, const int creation_date);
-
+    explicit Village(const Village& pVillage);
 
 //    static Village* createVillage(const std::string& name, const int creation_date) {
 //        Village* result = new Village(name, creation_date);
@@ -58,6 +57,7 @@ public:
     Npc & getNpc(long);
 
     int getAliveInhabitantsAmount() const;
+    int getCreationDate() const;
 
     void nextYearHandler();
 

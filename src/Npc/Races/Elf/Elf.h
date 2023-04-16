@@ -9,9 +9,9 @@
 
 
 class Elf : public Npc {
-private:
-    static const int ElfLifespan = 600;
 public:
+    static inline const int ElfLifespan = 600;
+
     Elf(std::string name, EGender gender, int age) : Npc{} {
         _lifeState = ELifeState::Alive;
         _race = ERace::Elf;
