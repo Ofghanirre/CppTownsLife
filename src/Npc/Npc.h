@@ -11,59 +11,9 @@
 #include <map>
 #include <memory>
 #include <cstdlib>
-
-
-enum class ERace{
-    Unknown = 0,
-    Human,
-    Elf,
-    Undead,
-    Spirit
-};
-inline std::string getRaceRepr(ERace race) {
-    switch (race) {
-        case ERace::Human       : return "HUMAN";
-        case ERace::Elf         : return "ELF";
-        case ERace::Undead      : return "UNDEAD";
-        case ERace::Spirit      : return "SPIRIT";
-        default                 : return "UNKNOWN";
-    }
-}
-
-inline std::vector<ERace> getAllRace() {
-    return {ERace::Human, ERace::Elf, ERace::Undead, ERace::Spirit};
-}
-
-enum class EGender {
-    Unknown = 0,
-    Male,
-    Female
-};
-inline std::string getGenderRepr(EGender gender) {
-    switch (gender) {
-        case EGender::Male          : return "MALE";
-        case EGender::Female        : return "FEMALE";
-        default                     : return "<?>";
-    }
-}
-
-inline std::vector<EGender> getAllGender() {
-    return {EGender::Male, EGender::Female};
-}
-
-enum class ELifeState {
-    Dead = 0,
-    Alive = 1,
-    Immortal = 2,
-};
-inline std::string getLifeStateRepr(ELifeState lifeState) {
-    switch (lifeState) {
-        case ELifeState::Dead       : return "DEAD";
-        case ELifeState::Alive      : return "ALIVE";
-        case ELifeState::Immortal   : return "IMMORTAL";
-    }
-}
-
+#include "Races/ERace.h"
+#include "EGender.h"
+#include "ELifeState.h"
 
 class Npc {
 private:
@@ -101,10 +51,6 @@ public:
     bool isBreedable() const;
 
     bool operator==(const Npc& other) const;
-
-    static const std::string getNpcNameFile() {
-        return "resources/npcNames/Default.txt";
-    }
 
 protected:
     long _id = 0;
