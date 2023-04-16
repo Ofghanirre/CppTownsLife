@@ -48,10 +48,6 @@ public:
     int talkWith(Npc& npc) const override;
 
     bool canBreadWith(Npc& other) const override;
-
-    static const std::string getNpcNameFile() {
-        return "resources/npcNames/Human.txt";
-    }
 };
 
 

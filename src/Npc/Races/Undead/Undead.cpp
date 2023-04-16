@@ -11,7 +11,7 @@ std::string Undead::say_hi() const {
 }
 
 std::string Undead::to_string() const {
-    return "["+ getRaceRepr(_race)+ "] " + _name ;
+    return "[" + NpcRace::to_string(_race) + "] " + _name ;
 }
 
 void Undead::growOlder() {

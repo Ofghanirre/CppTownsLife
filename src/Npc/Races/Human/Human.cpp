@@ -12,7 +12,7 @@ std::string Human::say_hi() const {
 }
 
 std::string Human::to_string() const {
-    return "["+ getRaceRepr(_race) +" "+ getGenderRepr(_gender) + " ] " + _name ;
+    return "[" + NpcRace::to_string(_race) + " " + NpcGender::to_string(_gender) + " ] " + _name ;
 }
 
 void Human::growOlder() {
