@@ -11,10 +11,11 @@ std::vector<std::string> NpcNameGenerator::readSyllablesFromFile(const string &f
     static const Logger logger{"NpcName loader"};
     if (!file.is_open()) {
         logger.log(LogLevel::Warning, "Unable to find " + filePath + " name file, loading default one instead...");
-        file.open(Npc::getNpcNameFile());
+        const string &defaultNameFilePath = NpcRace::getNameFilePath(ERace::Unknown);
+        file.open(defaultNameFilePath);
         if (!file.is_open()) {
-            logger.log(LogLevel::Error, "Unable to find " + Npc::getNpcNameFile() + " default name file... exiting");
-            throw runtime_error("Unable to open NameFile : " + Npc::getNpcNameFile());
+            logger.log(LogLevel::Error, "Unable to find " + defaultNameFilePath + " default name file... exiting");
+            throw runtime_error("Unable to open NameFile : " + defaultNameFilePath);
         }
     }
     std::string syllable;
@@ -30,14 +31,7 @@ std::vector<std::string> NpcNameGenerator::readSyllablesFromFile(const string &f
 }
 
 std::string getFilePathFromRace(ERace race) {
-    std::string racePathFile;
-    switch (race) {
-        case ERace::Human: racePathFile = Human::getNpcNameFile(); break;
-        case ERace::Elf: racePathFile = Elf::getNpcNameFile(); break;
-        case ERace::Undead: racePathFile = Undead::getNpcNameFile(); break;
-        case ERace::Spirit: racePathFile = Spirit::getNpcNameFile(); break;
-        default: racePathFile = Npc::getNpcNameFile();
-    }
+    std::string racePathFile = NpcRace::getNameFilePath(race);
     const std::string absPath(__FILE__);
     const std::string baseDir = absPath.substr(0, absPath.find_last_of("/\\") + 1);
     return baseDir + "../../" + racePathFile;
@@ -63,7 +57,7 @@ string NpcNameGenerator::generateNewName(ERace race, int syllablesMinLength, int
 
 map<ERace, vector<std::string>> NpcNameGenerator::init() {
     auto result = map<ERace, vector<string>>();
-    for (const auto &race: getAllRace()) {
+    for (const auto &race: NpcRace::getAll()) {
         result[race] = readSyllablesFromFile(getFilePathFromRace(race));
     }
     result[ERace::Unknown] = readSyllablesFromFile(getFilePathFromRace(ERace::Unknown));
