@@ -37,6 +37,8 @@ public:
         return season_to_string(_season) + " " + std::to_string(_year);
     }
 
+    friend ostream& operator<<(ostream& stream, const RpgDate& date);
+
     int get_year() const;
     Season get_season() const;
     bool next();

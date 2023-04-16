@@ -35,3 +35,7 @@ int RpgDate::get_year() const {
 Season RpgDate::get_season() const {
     return _season;
 }
+
+ostream& operator<<(ostream &_stream, const RpgDate &date) {
+    return _stream << season_to_string(date.get_season()) + " of " + to_string(date.get_year());
+}
