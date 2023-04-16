@@ -6,6 +6,8 @@
 #include "utils/Displayer.h"
 #include "Npc/Races/Human/Human.h"
 #include "Npc/Creator/NpcCreator.h"
+#include "PlayerActions/PlayerAction.h"
+
 
 Village initVillage(RpgDate& date) {
     string villageName;
@@ -37,5 +39,78 @@ GameController GameController::initNew() {
     Village village = initVillage(date);
     initVillagers(village);
     std::cout << "\n\n" << village << std::endl;
-    return GameController(date, village);
+    return {date, village};
 }
+
+bool GameController::playerActionLoop() {
+    static vector<EPlayerActions> actions = PlayerActions::getAll();
+    EPlayerActions action;
+    while (0 < (action = choose<EPlayerActions>(_logger,
+                                                 "What actions would you like to do",
+                                                 actions,
+                                                 PlayerActions::to_string)))
+    {
+        PlayerAction f = _actions_map.at(action);
+        f.playAction(*this);
+        cout << "Action Point left : " << _action_token << endl;
+    }
+    return action == QUIT;
+}
+
+void GameController::start() {
+    cout << "starting" << endl;
+    bool isQuitting;
+    while (true) {
+        isQuitting = playerActionLoop();
+        if (isQuitting) break;
+        cout << _village.to_string() << endl;
+        cout << "New Date : " << ++_rpgDate << endl;
+    }
+
+    cout << "exiting" << endl;
+}
+
+
+
+GameController::GameController(RpgDate date, Village &village) :
+        _rpgDate(date),
+        _village{village},
+        _logger("Game Controller"),
+        _action_token(10)
+{
+}
+
+const Village &GameController::get_village() const {
+    return _village;
+}
+
+Village &GameController::get_village() {
+    return _village;
+}
+
+RpgDate &GameController::get_date() { return _rpgDate; }
+
+const RpgDate &GameController::get_date() const {
+    return _rpgDate;
+}
+
+std::map<EPlayerActions, PlayerAction> GameController::_actions_map = GameController::init_action_map();
+
+map<EPlayerActions, PlayerAction> GameController::init_action_map() {
+    auto f = [](GameController& c){ return true; };
+    return {
+            {QUIT, {0, f}},
+            {FINISH, {0, f}},
+            {UNKNOWN, {0, f}},
+            {HELLO, {1, [](GameController& c){cout << c.get_date() << endl; return true;}}}
+    };
+}
+
+const int& GameController::getActionToken() const {
+    return _action_token;
+}
+
+int& GameController::getActionToken() {
+    return _action_token;
+}
+
